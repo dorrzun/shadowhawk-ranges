@@ -17,5 +17,11 @@ public class RangeReservationRequest {
         The range # they want to reserve (e.g: 1-30)
         Reservation type (Event/Personal)
         Additional info is TBD until I hear back from them.
-     */
+
+        Info we need:
+            1. A way to uniquely identify people making reservations
+
+        The guessed workflow
+    */
+
 }

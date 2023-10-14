@@ -1,7 +1,16 @@
 package com.shadowhawk.registrar.model; //This is the "namespace" for this class
 
+import java.io.Serializable;
+
+import org.apache.commons.lang3.StringUtils;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -19,21 +28,10 @@ import lombok.Setter;
 @Getter //Generates a "getter" for each field (e.g: getFirstName).
 @Setter //Generates a "setter" for each field (e.g: setFirstName).
 @Builder //Generates a "builder" for this class, which lets you pick which fields to set values for at will! More on this in makeAnotherPerson()
-public class BetterPerson {
-    private String firstName;
-    private char middleInitial; 
+public class BetterPerson implements Serializable {
+    private String firstName; 
     private String lastName;
     private int age;
-
-    /**
-     * You can freely override any getter/setter that you want, which means Lombok won't generate one.
-     * In this function, we are completely preventing anyone from changing age, except the object itself of course!
-     * @param newAge
-     */
-    public void setAge(int newAge){
-        System.out.println("I AIN'T CHANGING NOTHING LOSER!");
-        return;
-    }
 
     /**
      * Returns a basic greeting consisting of first and last name
@@ -53,8 +51,6 @@ public class BetterPerson {
         StringBuilder sb = new StringBuilder();
             sb.append("Hi! My name is")
                 .append(firstName)
-                .append(SPACE)
-                .append(middleInitial)
                 .append(SPACE)
                 .append(lastName)
                 .append(SPACE)
@@ -77,7 +73,6 @@ public class BetterPerson {
 
         BetterPerson bestPerson = BetterPerson.builder() //Makes the finest Pipi Man on all of Earth :D
         .firstName("Daniel")
-        .middleInitial('P')
         .lastName("Milstead")
         .age(26)
         .build();

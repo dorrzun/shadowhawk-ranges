@@ -2,16 +2,13 @@ package com.shadowhawk.registrar.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shadowhawk.registrar.model.BetterPerson;
-import com.shadowhawk.registrar.model.Person;
 
-/**
- * TODO:
- * 1. 
- */
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 /**
  * Represents the a simple REST API, where the Java application provides endpoints for anyone to hit!
@@ -22,6 +19,7 @@ import com.shadowhawk.registrar.model.Person;
  * That's what's neat, it doesn't matter, and that's exactly what REST APIs are all about :)
  * 
  * @implNote It's designed to have security/authentication too, but we aren't worried about any of that just yet.
+ * @apiNote This is an API note
  */
 @RestController
 @RequestMapping("api/greetings")
@@ -34,13 +32,11 @@ public class GreetingController {
 	@GetMapping("/basicGreeting")
 	public String greetByFirstName(@RequestParam String firstName) {
 		//Make a Person or BetterPerson and greet them with the firstName
-		return null;
-	}
-	@GetMapping("/advancedGreeting")
-	public String greetByFullName(
-		@RequestParam String firstName,
-		@RequestParam String lastName) {
-		return BetterPerson.builder().build().getBasicGreeting();
+		return "You gave the name: " + firstName;
 	}
 
+	@GetMapping(value = "/advancedGreeting")
+	public String greetByFullName(@RequestBody BetterPerson p) {
+		return "You gave me: " + p.getFirstName();
+	}
 }

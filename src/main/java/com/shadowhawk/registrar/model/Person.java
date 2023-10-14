@@ -1,23 +1,10 @@
 package com.shadowhawk.registrar.model; //This is the "namespace" for this class
 
 /**
- * This class is a 
- */
-
-/**
- * To-Do:
- * 1. Fix the bug
- */
-
-/**
- * Represents a simple greeting.
+ * Represents a person.
  * @apiNote This object is written in a Java style that might be somewhat familiar to you.
  * The issue is that there are LOTS of boilerplate code
  */
-
-//Class names should always begin with capital letters
-//For now, make all of your classes public. This sets its scope/visibility to be available to the entire project
-//Obviously, this isn't a good idea when your application scales, but I'd rather you not run into silly compile issues while relearning :)
 
 public class Person {
     private String firstName; //Variable names in Java are always camelCase

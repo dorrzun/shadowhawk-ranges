@@ -4,7 +4,7 @@ package com.shadowhawk.registrar.service.reservations.event;
  * Represents the information submitted by a range member who would like to book an event
  * at a certain time/day on one or more ranges.
  */
-public class EventRequest {
+public class EventReservationRequest {
     /**
         A duration time/date (somewhat implemented above)
         Membership ID (Tells us who is booking the range)
