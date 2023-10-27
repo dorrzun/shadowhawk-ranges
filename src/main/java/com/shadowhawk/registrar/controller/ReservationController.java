@@ -12,7 +12,6 @@ import com.shadowhawk.registrar.service.reservations.range.ReservationSystem;
 public class ReservationController {
     @Autowired ReservationSystem rangeRegistrar;
 
-
 	@GetMapping("/range")
 	public String reserveRange() {
         return "Not setup yet!";

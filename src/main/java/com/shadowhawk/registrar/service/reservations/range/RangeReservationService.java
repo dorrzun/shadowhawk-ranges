@@ -3,12 +3,15 @@ package com.shadowhawk.registrar.service.reservations.range;
 import java.io.IOException;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Responsible for processing, approving or rejecting range reservation requests
  */
 @Slf4j
+@Service
 public class RangeReservationService implements ReservationSystem {
 
     @Override
