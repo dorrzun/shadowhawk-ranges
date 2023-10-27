@@ -11,3 +11,5 @@ To run:
 
 To view the REST API via the built-in Swagger page:
 http://localhost:8080/swagger-ui/index.html
+
+Made with love by Austin and Daniel <3
