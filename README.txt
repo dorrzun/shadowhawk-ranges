@@ -1,3 +1,5 @@
+This is a range reservation system.
+
 To install:
 ./mvnw install
 
