@@ -1,27 +1,33 @@
 package com.shadowhawk.registrar.service.reservations.range;
 
-import java.time.LocalDateTime;
-
+import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 
 /**
  * Represents the information submitted by a range member who would like to reserve
  * a shooting range at a certain time/day.
+ * 
+ * @apiNote Requests must always have a Membership ID and the type of weapon that they will be using
  */
-@Data //This provides both @Getter and @Setter too
+@Data
+@Builder
 public class RangeReservationRequest {
-    private LocalDateTime timeOfRequest = LocalDateTime.now();
-    /**
-        A duration time/date (somewhat implemented above)
-        Membership ID (Tells us who is booking the range)
-        The range # they want to reserve (e.g: 1-30)
-        Reservation type (Event/Personal)
-        Additional info is TBD until I hear back from them.
+    private String reservationId; //Once approved, this holds the unique identifier to find this reservation
+    @NonNull private String memberId; //The Membership ID for the person
+    
+    @NonNull private Integer month;
+    @NonNull private Integer day;
+    @NonNull private Integer year;
+    private Integer rangeNumber; //The # of the range station that they want to reserve
 
-        Info we need:
-            1. A way to uniquely identify people making reservations
+    @NonNull private String weaponType; //"Pistol or Rifle"
 
-        The guessed workflow
-    */
+    public boolean hasNoRangePreference(){
+        return rangeNumber == null;
+    }
 
+    public boolean needsLongRange(){
+        return weaponType.equalsIgnoreCase("Rifle");
+    }
 }
