@@ -33,17 +33,17 @@ public class RangeReservationService implements ReservationSystem {
         throw new UnsupportedOperationException("Unimplemented method 'removeReservation'");
     }
 
-    @Override
-    public String modifyReservation(String reservationId) {
-        throw new UnsupportedOperationException("Unimplemented method 'modifyReservation'");
-    }
+    // @Override
+    // public String modifyReservation(String reservationId) {
+    //     throw new UnsupportedOperationException("Unimplemented method 'modifyReservation'");
+    // }
 
-    @Override
-    public String removeReservation(String reservationId) {
-        return null;
-    }
+    // @Override
+    // public String removeReservation(String reservationId) {
+    //     return null;
+    // }
     
-    private Optional<String> makeReservation() throws IOException {
-        return Optional.empty();
-    }
+    // private Optional<String> makeReservation() throws IOException {
+    //     return Optional.empty();
+    // }
 }
