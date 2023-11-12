@@ -49,7 +49,6 @@ public class RangeReservationService implements ReservationSystem {
             throw new IllegalArgumentException();
         }
 
-<<<<<<< HEAD
     // @Override
     // public String modifyReservation(String reservationId) {
     //     throw new UnsupportedOperationException("Unimplemented method 'modifyReservation'");
@@ -63,7 +62,6 @@ public class RangeReservationService implements ReservationSystem {
     // private Optional<String> makeReservation() throws IOException {
     //     return Optional.empty();
     // }
-=======
         //"Confirm" the request by adding it to the database
         log.info("Reservation added under Member ID: {}", request.getMemberId());
 
@@ -111,5 +109,17 @@ public class RangeReservationService implements ReservationSystem {
             .build()                       
         ));
     }
->>>>>>> 990199dcace17674d81e0929da2c53b113f12a1c
+
+    public String deleteReservation(String resId) throws IOException, IllegalArgumentException {
+        String status = "Reservation not found.";
+
+        for(int i = 0; i < reservationDatabase.size(); ++i){
+            if(reservationDatabase.get(i).getReservationId() == resId){
+                reservationDatabase.remove(i);
+                status = "Reservation deleted.";
+            }
+        }
+
+        return status;
+    }
 }
