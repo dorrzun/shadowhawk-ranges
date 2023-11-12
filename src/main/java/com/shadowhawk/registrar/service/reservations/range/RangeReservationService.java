@@ -15,7 +15,45 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class RangeReservationService implements ReservationSystem {
-    private List<RangeReservationRequest> reservationDatabase = createDatabase();
+    private List<RangeReservationRequest> reservationDatabase;
+
+    public RangeReservationService(){
+        this.reservationDatabase = createDatabase();
+    }
+
+    /**
+     * Creates a few requests
+     */
+    private List<RangeReservationRequest> createDatabase(){
+        return new ArrayList<>(List.of(
+            RangeReservationRequest.builder()
+            .memberId("123")
+            .reservationId("2000")
+            .month(8)
+            .day(25)
+            .year(2023)
+            .weaponType("rifle")
+            .build(),
+            
+            RangeReservationRequest.builder()
+            .memberId("007")
+            .reservationId("1993")
+            .month(7)
+            .day(20)
+            .year(2023)
+            .weaponType("pistol")
+            .build(),
+            
+            RangeReservationRequest.builder()
+            .memberId("456")
+            .reservationId("1997")
+            .month(1)
+            .day(1)
+            .year(2023)
+            .weaponType("pistol")
+            .build()                       
+        ));
+    }
 
     /**
      * @implSpec Reserves a slot for the member, as long as they don't already have one with
@@ -49,19 +87,6 @@ public class RangeReservationService implements ReservationSystem {
             throw new IllegalArgumentException();
         }
 
-    // @Override
-    // public String modifyReservation(String reservationId) {
-    //     throw new UnsupportedOperationException("Unimplemented method 'modifyReservation'");
-    // }
-
-    // @Override
-    // public String removeReservation(String reservationId) {
-    //     return null;
-    // }
-    
-    // private Optional<String> makeReservation() throws IOException {
-    //     return Optional.empty();
-    // }
         //"Confirm" the request by adding it to the database
         log.info("Reservation added under Member ID: {}", request.getMemberId());
 
@@ -82,44 +107,16 @@ public class RangeReservationService implements ReservationSystem {
         return hasSameDay && hasSameMonth && hasSameYear;
     }
 
-    private List<RangeReservationRequest> createDatabase(){
-        return new ArrayList<>(List.of(
-            RangeReservationRequest.builder()
-            .memberId("123")
-            .month(8)
-            .day(25)
-            .year(2023)
-            .weaponType("rifle")
-            .build(),
-            
-            RangeReservationRequest.builder()
-            .memberId("007")
-            .month(7)
-            .day(20)
-            .year(2023)
-            .weaponType("pistol")
-            .build(),
-            
-            RangeReservationRequest.builder()
-            .memberId("456")
-            .month(1)
-            .day(1)
-            .year(2023)
-            .weaponType("pistol")
-            .build()                       
-        ));
-    }
-
-    public String deleteReservation(String resId) throws IOException, IllegalArgumentException {
+    @Override
+    public String deleteReservation(String reservationId) throws IOException, IllegalArgumentException {
         String status = "Reservation not found.";
 
         for(int i = 0; i < reservationDatabase.size(); ++i){
-            if(reservationDatabase.get(i).getReservationId() == resId){
+            if(reservationDatabase.get(i).getReservationId().equals(reservationId)){
                 reservationDatabase.remove(i);
                 status = "Reservation deleted.";
             }
         }
-
         return status;
     }
 }

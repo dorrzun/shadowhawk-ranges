@@ -13,4 +13,5 @@ public interface ReservationSystem {
      * @return A UID for the created reservation
      */
     String createReservation(RangeReservationRequest request) throws IOException, IllegalArgumentException;
+    String deleteReservation(String reservationId) throws IOException, IllegalArgumentException;
 }
