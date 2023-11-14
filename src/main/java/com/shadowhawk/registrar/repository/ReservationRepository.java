@@ -2,8 +2,8 @@ package com.shadowhawk.registrar.repository;
 
 import java.util.Optional;
 
+import org.socialsignin.spring.data.dynamodb.repository.DynamoDBCrudRepository;
 import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
-import org.springframework.data.repository.CrudRepository;
 
 import com.shadowhawk.registrar.model.dynamodb.Reservation;
 
@@ -13,7 +13,7 @@ import com.shadowhawk.registrar.model.dynamodb.Reservation;
  */
 @EnableScan
 public interface ReservationRepository extends 
-  CrudRepository<Reservation, String> {
+  DynamoDBCrudRepository<Reservation, String> {
     Optional<Reservation> findById(String id); //Find by Reservation Id
 }
 

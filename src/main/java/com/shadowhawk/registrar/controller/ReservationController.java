@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.shadowhawk.registrar.model.dynamodb.Reservation;
 import com.shadowhawk.registrar.repository.ReservationRepository;
 import com.shadowhawk.registrar.service.reservations.range.RangeReservationRequest;
@@ -28,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/range-reservations")
 public class ReservationController {
     @Autowired private ReservationSystem rangeReserver;
-    @Autowired private ReservationRepository dynamoDbTable;
+    @Autowired private ReservationRepository reservationDatabase;
 
     @ResponseBody
     @Operation(description = "Reserve a range")
@@ -60,15 +61,14 @@ public class ReservationController {
     @ApiResponse(responseCode = "200", description = "Item added")
     @ApiResponse(responseCode = "400", description = "Failed to add")
     @PutMapping(value = "/addItem")
-	public ResponseEntity<Void> addItem(@RequestBody Reservation reservation) {
+	public ResponseEntity<String> addItem(@RequestBody Reservation reservation) {
         String reservationId;
         try{
-            log.info("Adding this reservation to the database {}", reservation);
-            reservationId = dynamoDbTable.save(reservation).getId();
-            log.info("Added. ID is {}", reservationId);
-            return ResponseEntity.ok().build();
+            reservationId = reservationDatabase.save(reservation).getId();
+            log.info("Reservation is booked. Your Reservation ID is {}", reservationId);
+            return ResponseEntity.ok().body("Success. The ID is " + reservationId);
         }catch(Exception e){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(e.toString());
         }
     }
 
@@ -80,7 +80,7 @@ public class ReservationController {
 	public ResponseEntity<Reservation> findItem(@RequestParam String reservationId) {
         try{
             log.info("Finding reservation with ID {} in the database", reservationId);
-            Optional<Reservation> result = dynamoDbTable.findById(reservationId);
+            Optional<Reservation> result = reservationDatabase.findById(reservationId);
             if(result.isPresent()){
                 return ResponseEntity.ok(result.get());
             }
@@ -97,7 +97,7 @@ public class ReservationController {
 	public ResponseEntity<Void> deleteItem(@RequestParam String reservationId) {
         try{
             log.info("Deleting this reservation from the database {}", reservationId);
-            dynamoDbTable.deleteById(reservationId);
+            reservationDatabase.deleteById(reservationId);
             log.info("Deleted reservation {}", reservationId);
             return ResponseEntity.ok().build();
         }catch(Exception e){
