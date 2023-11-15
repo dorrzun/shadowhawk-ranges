@@ -20,12 +20,11 @@ To run:
 To view the REST API via the built-in Swagger page:
 http://localhost:8080/swagger-ui/index.html
 
-To run DynamoDB locally, first download the v1 SDK for it (link coming soon):
-Then, run the following commmand in the directory you extracted it to:
+To run DynamoDB locally, first download the v1 for it:
+    https://d1ni2b6xgvw0s0.cloudfront.net/dynamodb_local_latest.zip
+
+Then, extract to a directory, then navigate to it and run via:
     java -jar -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
 
  You can also view the database and perform operations on it through the AWS CLI they provide:
  aws dynamodb --endpoint-url http://localhost:8000 dynamodb
-
-
-Made with love by Austin and Daniel <3<3<3

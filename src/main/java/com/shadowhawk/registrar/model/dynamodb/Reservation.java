@@ -12,25 +12,24 @@ import lombok.Data;
 @Data
 @DynamoDBTable(tableName = "reservations")
 public class Reservation {
+    @JsonProperty
     @DynamoDBHashKey(attributeName = "id")
-    private String id;
+    private String id; //DynamoDB creates this value for you, do not change it
 
+    @JsonProperty(required = true)
     @DynamoDBAttribute(attributeName = "orgId")
     private String orgId;
 
+    @JsonProperty(required = true)
     @DynamoDBAttribute(attributeName = "timeCreated")
     private long timeCreated;
 
-    @DynamoDBAttribute(attributeName = "memberId")
     @JsonProperty(required = true)
+    @DynamoDBAttribute(attributeName = "memberId")
     private String memberId;
 
+    @JsonProperty
     @DynamoDBAttribute(attributeName = "rangeNum")
     private Integer rangeNum;
 
-    @DynamoDBAttribute(attributeName = "day")
-    private Integer day;
-
-    @DynamoDBAttribute(attributeName = "year")
-    private Integer year;
 }
