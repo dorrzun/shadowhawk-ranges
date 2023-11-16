@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.shadowhawk.registrar.model.dynamodb.Reservation;
 import com.shadowhawk.registrar.repository.ReservationRepository;
 import com.shadowhawk.registrar.service.reservations.range.RangeReservationRequest;
