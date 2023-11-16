@@ -1,7 +1,6 @@
 package com.shadowhawk.registrar.repository.cfg;
 
 import org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +14,6 @@ import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
 import com.amazonaws.services.dynamodbv2.model.KeyType;
-import com.amazonaws.services.dynamodbv2.model.ListTablesRequest;
-import com.amazonaws.services.dynamodbv2.model.ListTablesResult;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 
@@ -55,7 +52,9 @@ public class DynamoDBConfig {
 
             //Make the default tables, overwriting any existing ones
             String tableName = "reservations";
-            amazonDynamoDB.deleteTable(tableName);
+            if(amazonDynamoDB.listTables().getTableNames().contains(tableName)){
+                amazonDynamoDB.deleteTable(tableName);
+            }
             createTable(amazonDynamoDB, tableName);
             log.info("DynamoDB Tables found/created: {}", amazonDynamoDB.listTables());
         }else{
