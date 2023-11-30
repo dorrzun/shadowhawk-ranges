@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "amazon.dynamodb.run-locally",
+  "type": "java.lang.String",
+  "description": "Self-host the DynamoDB instance"
+}]}
