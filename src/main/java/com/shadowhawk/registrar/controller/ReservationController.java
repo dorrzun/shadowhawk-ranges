@@ -25,12 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/range-reservations")
+@RequestMapping("/reservation")
 public class ReservationController {
     @Autowired private ReservationSystem rangeReserver;
     @Autowired private ReservationRepository reservationDatabase;
 
-    @ResponseBody
     @Operation(description = "Reserve a range")
     @ApiResponse(responseCode = "200", description = "Reservation made")
     @ApiResponse(responseCode = "400", description = "One reservation limit reached or date not available")
@@ -64,8 +63,8 @@ public class ReservationController {
         String reservationId;
         try{
             reservationId = reservationDatabase.save(reservation).getId();
-            log.info("Reservation is booked. Your Reservation ID is {}", reservationId);
-            return ResponseEntity.ok().body("Success. The ID is " + reservationId);
+            log.info("Created new reservation with ID: {}", reservationId);
+            return ResponseEntity.ok().body(reservationId);
         }catch(Exception e){
             return ResponseEntity.badRequest().body(e.toString());
         }
@@ -78,7 +77,7 @@ public class ReservationController {
     @GetMapping(value = "/findItem")
 	public ResponseEntity<Reservation> findItem(@RequestParam String reservationId) {
         try{
-            log.info("Finding reservation with ID {} in the database", reservationId);
+            log.info("Finding reservation with ID of: {}", reservationId);
             Optional<Reservation> result = reservationDatabase.findById(reservationId);
             if(result.isPresent()){
                 return ResponseEntity.ok(result.get());
